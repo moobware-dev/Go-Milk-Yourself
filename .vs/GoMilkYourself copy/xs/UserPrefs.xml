@@ -1,0 +1,19 @@
+﻿<Properties StartupConfiguration="{E7AA6331-ECD6-CD7E-53DA-61D121A876A7}|">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Programming/GameController.cs">
+    <Files>
+      <File FileName="Assets/Programming/GameController.cs" Line="75" Column="120" />
+      <File FileName="Assets/Programming/Bucket.cs" Line="54" Column="33" />
+      <File FileName="Assets/Programming/DebugPs4Controller.cs" Line="25" Column="5" />
+    </Files>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore>
+      <Breakpoint file="/Users/moobchunks/dev/GoMilkYourself copy/Assets/Programming/GameController.cs" relfile="Assets/Programming/GameController.cs" line="133" column="1" />
+      <Breakpoint file="/Users/moobchunks/dev/GoMilkYourself copy/Assets/Programming/GameController.cs" relfile="Assets/Programming/GameController.cs" line="160" column="1" />
+    </BreakpointStore>
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+  <MultiItemStartupConfigurations />
+  <MonoDevelop.Ide.ItemProperties.GoMilkYourself_220copy PreferredExecutionTarget="Unity.Editor" />
+</Properties>
