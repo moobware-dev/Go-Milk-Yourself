@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using System.Linq;
 
 public class GameController : MonoBehaviour
 {
@@ -15,6 +16,7 @@ public class GameController : MonoBehaviour
     public float HoofPinchSpeed = 15f;
     private bool inPosition = false;
 
+    public float BucketsPerMinuteUpdateInterval = 0.3f;
 
     public GameObject BucketPrefab;
     private Bucket currentBucketScript;
@@ -23,7 +25,7 @@ public class GameController : MonoBehaviour
     public Vector3 BucketGetMilkedOnPosition;
     public Vector3 BucketGoOffscreenPosition;
 
-    public Text ScoreText;
+    public Text BucketsPerMinuteText;
 
     public ParticleSystem UpperLeftMilkParticles;
     public ParticleSystem UpperRightMilkParticles;
@@ -69,10 +71,16 @@ public class GameController : MonoBehaviour
     public AudioSource UpperLeftUdderAudioSource;
     public AudioSource UpperRightUdderAudioSource;
 
+    public List<FilledBucketDataPoint> bucketsPerMinuteData;
+    private float bucketsMilked;
+
     // Use this for initialization
     void Start()
     {
+        bucketsPerMinuteData = new List<FilledBucketDataPoint>();
+        BucketsPerMinuteText.text = "0";
         CreateNewBucket();
+        StartCoroutine(ContinuouslyUpdateBucketsPerMinute());
     }
 
     // Update is called once per frame
@@ -131,10 +139,13 @@ public class GameController : MonoBehaviour
                 if (currentBucketGameObject.transform.position == MilkCatchingPosition.position)
                 {
                     UpperLeftUdderAudioSource.Play();
+                    bucketsMilked += milkPerSquirt;
                     var bucketFull = (currentBucketScript.AddPercentFullToBucketReturnNewPercentFull(milkPerSquirt) >= 1f);
                     if (bucketFull)
                     {
                         CreateNewBucket();
+                        RecordBucketFilled();
+                        UpdateCurrentBucketsPerMinute();
                     }
                     UpperLeftMilkParticles.Play();
                 }
@@ -163,10 +174,13 @@ public class GameController : MonoBehaviour
                 if (currentBucketGameObject.transform.position == MilkCatchingPosition.position)
                 {
                     UpperRightUdderAudioSource.Play();
+                    bucketsMilked += milkPerSquirt;
                     var bucketFull = (currentBucketScript.AddPercentFullToBucketReturnNewPercentFull(milkPerSquirt) >= 1f);
                     if (bucketFull)
                     {
                         CreateNewBucket();
+                        RecordBucketFilled();
+                        UpdateCurrentBucketsPerMinute();
                     }
                     UpperRightMilkParticles.Play();
                 }
@@ -179,10 +193,38 @@ public class GameController : MonoBehaviour
         }
     }
 
-    void CreateNewBucket() 
+    void CreateNewBucket()
     {
         var bucketGameObject = Instantiate(BucketPrefab, MilkCatchingPosition.position, MilkCatchingPosition.rotation);
         currentBucketScript = bucketGameObject.GetComponent<Bucket>();
         currentBucketGameObject = bucketGameObject;
     }
+
+    void RecordBucketFilled()
+    {
+        bucketsPerMinuteData.Add(new FilledBucketDataPoint { TimeFilled = Time.time });
+    }
+
+    void UpdateCurrentBucketsPerMinute()
+    {
+        var bucketsFilledOverTheLastMinute = bucketsPerMinuteData.Where((dataPoint) =>
+        {
+            return dataPoint.TimeFilled > Time.time - 60f;
+        });
+
+        BucketsPerMinuteText.text = bucketsFilledOverTheLastMinute.Count().ToString();
+    }
+
+    IEnumerator ContinuouslyUpdateBucketsPerMinute()
+    {
+        while (true) {
+            yield return new WaitForSeconds(BucketsPerMinuteUpdateInterval);
+            UpdateCurrentBucketsPerMinute();
+        }
+    }
+}
+
+public class FilledBucketDataPoint
+{
+    public float TimeFilled { get; set; }
 }

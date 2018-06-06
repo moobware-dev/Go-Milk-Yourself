@@ -1507,7 +1507,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: -1950016593
+  randomSeed: -380626925
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -5259,12 +5259,13 @@ MonoBehaviour:
   InGameMilkingSpeed: 15
   MilkingSpeedDelay: 1
   HoofPinchSpeed: 15
+  BucketsPerMinuteUpdateInterval: 0.3
   BucketPrefab: {fileID: 1505762555617418, guid: 326a326ca671f41029457820282a9c32,
     type: 2}
   MilkCatchingPosition: {fileID: 1174441665}
   BucketGetMilkedOnPosition: {x: 0, y: -0.089, z: 0.439}
   BucketGoOffscreenPosition: {x: 1.337, y: -0.089, z: 0.439}
-  ScoreText: {fileID: 1400134786}
+  BucketsPerMinuteText: {fileID: 1400134786}
   UpperLeftMilkParticles: {fileID: 1404295767}
   UpperRightMilkParticles: {fileID: 861132854}
   LeftArm: {fileID: 596153071}
@@ -5942,7 +5943,7 @@ GameObject:
   - component: {fileID: 1400134787}
   - component: {fileID: 1400134786}
   m_Layer: 5
-  m_Name: ScoreText
+  m_Name: BPMTextValue
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5974,13 +5975,13 @@ MonoBehaviour:
     m_BestFit: 0
     m_MinSize: 0
     m_MaxSize: 50
-    m_Alignment: 0
+    m_Alignment: 2
     m_AlignByGeometry: 0
     m_RichText: 1
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 60
+  m_Text: 
 --- !u!222 &1400134787
 CanvasRenderer:
   m_ObjectHideFlags: 0

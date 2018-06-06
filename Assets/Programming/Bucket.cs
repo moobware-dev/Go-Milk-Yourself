@@ -71,8 +71,6 @@ public class Bucket : MonoBehaviour
                 markedForDeath = true;
                 animator.SetTrigger("BucketFilled");
                 var timeToKill = animator.GetCurrentAnimatorStateInfo(0).length - destroyBucketEalierSeconds;
-                Debug.Log(string.Format("Destroy after {0} seconds", timeToKill));
-                Debug.Log(string.Format("PercentFull: {0}", percentFull));
                 StartCoroutine(DestroyAfterSeconds(timeToKill));
             }
         }
