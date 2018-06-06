@@ -144,7 +144,7 @@ public class GameController : MonoBehaviour
                     if (bucketFull)
                     {
                         CreateNewBucket();
-                        RecordBucketFilled();
+                        //RecordBucketFilled();
                         UpdateCurrentBucketsPerMinute();
                     }
                     UpperLeftMilkParticles.Play();
@@ -179,7 +179,7 @@ public class GameController : MonoBehaviour
                     if (bucketFull)
                     {
                         CreateNewBucket();
-                        RecordBucketFilled();
+                        //RecordBucketFilled();
                         UpdateCurrentBucketsPerMinute();
                     }
                     UpperRightMilkParticles.Play();
@@ -207,17 +207,23 @@ public class GameController : MonoBehaviour
 
     void UpdateCurrentBucketsPerMinute()
     {
-        var bucketsFilledOverTheLastMinute = bucketsPerMinuteData.Where((dataPoint) =>
-        {
-            return dataPoint.TimeFilled > Time.time - 60f;
-        });
+        //var bucketsFilledOverTheLastMinute = bucketsPerMinuteData.Where((dataPoint) =>
+        //{
+        //    return dataPoint.TimeFilled > Time.time - 60f;
+        //});
 
-        BucketsPerMinuteText.text = bucketsFilledOverTheLastMinute.Count().ToString();
+        //BucketsPerMinuteText.text = bucketsFilledOverTheLastMinute.Count().ToString();
+
+        var minutesOfGameplay = Time.time / 60;
+        var bucketsPerMinute = bucketsMilked / minutesOfGameplay;// # knowing things is for losers
+
+        BucketsPerMinuteText.text = ((int)bucketsPerMinute).ToString();
     }
 
     IEnumerator ContinuouslyUpdateBucketsPerMinute()
     {
-        while (true) {
+        while (true)
+        {
             yield return new WaitForSeconds(BucketsPerMinuteUpdateInterval);
             UpdateCurrentBucketsPerMinute();
         }
