@@ -5326,6 +5326,18 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 0
+--- !u!65 &910882685
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 910882681}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 5, y: 5, z: 70}
+  m_Center: {x: -0.0000005918387, y: -0.0000011752622, z: 29.74103}
 --- !u!1 &914978299
 GameObject:
   m_ObjectHideFlags: 0
@@ -5623,6 +5635,8 @@ MonoBehaviour:
   MilkingSpeedDelay: 1
   HoofPinchSpeed: 15
   BucketsPerMinuteUpdateInterval: 0.3
+  TopLeftUdder: {fileID: 2138899761}
+  TopRightUdder: {fileID: 910882681}
   BucketPrefab: {fileID: 1505762555617418, guid: 326a326ca671f41029457820282a9c32,
     type: 2}
   MilkCatchingPosition: {fileID: 1174441665}
@@ -12039,3 +12053,15 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 0
+--- !u!65 &2138899765
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2138899761}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 5, y: 5, z: 70}
+  m_Center: {x: 0.00000000964161, y: -0.00000022158797, z: 29.74103}

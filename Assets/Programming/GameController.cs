@@ -18,6 +18,9 @@ public class GameController : MonoBehaviour
 
     public float BucketsPerMinuteUpdateInterval = 0.3f;
 
+    public GameObject TopLeftUdder;
+    public GameObject TopRightUdder;
+
     public GameObject BucketPrefab;
     private Bucket currentBucketScript;
     private GameObject currentBucketGameObject;
@@ -210,6 +213,20 @@ public class GameController : MonoBehaviour
         var rightArmMousePositionInput = !mouseOnLeftHalfOfScreen ? mouseVerticalPosition : 0;
         var leftHoofPinchMouseInput = mouseOnLeftHalfOfScreen && mouseDown;
         var rightHoofPinchMouseInput = !mouseOnLeftHalfOfScreen && mouseDown;
+
+        // TODO ACTUALLY USE THIS INSTEAD OF THE HACK ABOVE
+        //Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        //Debug.DrawRay(ray.origin, ray.direction);
+        //RaycastHit hitInfo = default(RaycastHit);
+        //if (Physics.Raycast(ray, out hitInfo)) {
+        //    if (hitInfo.transform.gameObject == TopLeftUdder) {
+        //        Debug.Log("hovering top left udder");
+        //    }
+
+        //    if (hitInfo.transform.gameObject == TopRightUdder) {
+        //        Debug.Log("Hovering top right udder");
+        //    }
+        //}
 
         return new GoMilkYourselfInputDTO
         {
