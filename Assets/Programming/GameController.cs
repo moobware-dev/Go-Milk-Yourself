@@ -93,29 +93,16 @@ public class GameController : MonoBehaviour
 
         var movmentSpeed = inPosition ? InGameMilkingSpeed : AssumeThePositionSpeed;
 
-        var mouseDown = Input.GetMouseButton(0);
-        var mouseOnLeftHalfOfScreen = Input.mousePosition.x <= (Screen.width / 2);
-        var mouseVerticalPosition =
-            ((Input.mousePosition.y / Screen.height) - 0.5f) * 2;
-
-        var leftArmMousePositionInput = mouseOnLeftHalfOfScreen ? mouseVerticalPosition : 0;
-        var rightArmMousePositionInput = !mouseOnLeftHalfOfScreen ? mouseVerticalPosition : 0;
-        var leftHoofPinchMouseInput = mouseOnLeftHalfOfScreen && mouseDown;
-        var rightHoofPinchMouseInput = !mouseOnLeftHalfOfScreen && mouseDown;
-
-        var leftArmJoystickPositionInput = (Input.GetAxis("Horizontal") + 1) / 2;
-        var rightArmJoystickPositionInput = (Input.GetAxis("Vertical") + 1) / 2;
-
-        var leftHoofPinchJoystickInput = Input.GetKey(KeyCode.JoystickButton6);
-        var rightHoofPinchJoystickInput = Input.GetKey(KeyCode.JoystickButton7);
+        var mouseInput = GetMouseInput();
+        var joystickInput = GetPs4ControllerInput();
 
         var leftArmPositionInput = 0f;
-        leftArmPositionInput = leftArmMousePositionInput != 0f ? leftArmMousePositionInput : leftArmJoystickPositionInput;
+        leftArmPositionInput = mouseInput.LeftArmPosition != 0f ? mouseInput.LeftArmPosition : joystickInput.LeftArmPosition;
         var rightArmPositionInput = 0f;
-        rightArmPositionInput = rightArmMousePositionInput != 0f ? rightArmMousePositionInput : rightArmJoystickPositionInput;
+        rightArmPositionInput = mouseInput.RightArmPosition != 0f ? mouseInput.RightArmPosition : joystickInput.RightArmPosition;
 
-        var leftHoofPinchInput = leftHoofPinchMouseInput ? leftHoofPinchMouseInput : leftHoofPinchJoystickInput;
-        var rightHoofPinchInput = rightHoofPinchMouseInput ? rightHoofPinchMouseInput : rightHoofPinchJoystickInput;
+        var leftHoofPinchInput = mouseInput.LeftHoofPinch ? mouseInput.LeftHoofPinch : joystickInput.LeftHoofPinch;
+        var rightHoofPinchInput = mouseInput.RightHoofPinch ? mouseInput.RightHoofPinch : joystickInput.RightHoofPinch;
 
         var leftArmTargetPosition = Vector3.Lerp(MilkUpperLeftBasePosition, MilkUpperLeftJustTheTipPosition, leftArmPositionInput);
         var rightArmTargetPosition = Vector3.Lerp(MilkUpperRightBasePosition, MilkUpperRightJustTheTipPosition, rightArmPositionInput);
@@ -213,6 +200,43 @@ public class GameController : MonoBehaviour
         }
     }
 
+    GoMilkYourselfInputDTO GetMouseInput() {
+        var mouseDown = Input.GetMouseButton(0);
+        var mouseOnLeftHalfOfScreen = Input.mousePosition.x <= (Screen.width / 2);
+        var mouseVerticalPosition =
+            ((Input.mousePosition.y / Screen.height) - 0.5f) * 2;
+
+        var leftArmMousePositionInput = mouseOnLeftHalfOfScreen ? mouseVerticalPosition : 0;
+        var rightArmMousePositionInput = !mouseOnLeftHalfOfScreen ? mouseVerticalPosition : 0;
+        var leftHoofPinchMouseInput = mouseOnLeftHalfOfScreen && mouseDown;
+        var rightHoofPinchMouseInput = !mouseOnLeftHalfOfScreen && mouseDown;
+
+        return new GoMilkYourselfInputDTO
+        {
+            LeftArmPosition = leftArmMousePositionInput,
+            RightArmPosition = rightArmMousePositionInput,
+            LeftHoofPinch = leftHoofPinchMouseInput,
+            RightHoofPinch = rightHoofPinchMouseInput
+        };
+    }
+
+    GoMilkYourselfInputDTO GetPs4ControllerInput() {
+        var leftArmJoystickPositionInput = (Input.GetAxis("Horizontal") + 1) / 2;
+        var rightArmJoystickPositionInput = (Input.GetAxis("Vertical") + 1) / 2;
+
+        var leftHoofPinchJoystickInput = Input.GetKey(KeyCode.JoystickButton6);
+        var rightHoofPinchJoystickInput = Input.GetKey(KeyCode.JoystickButton7);
+
+        return new GoMilkYourselfInputDTO
+        {
+            LeftArmPosition = leftArmJoystickPositionInput,
+            RightArmPosition = rightArmJoystickPositionInput,
+            LeftHoofPinch = leftHoofPinchJoystickInput,
+            RightHoofPinch = rightHoofPinchJoystickInput
+        };
+    }
+
+
     void CreateNewBucket()
     {
         var bucketGameObject = Instantiate(BucketPrefab, MilkCatchingPosition.position, MilkCatchingPosition.rotation);
@@ -248,6 +272,14 @@ public class GameController : MonoBehaviour
             UpdateCurrentBucketsPerMinute();
         }
     }
+}
+
+public class GoMilkYourselfInputDTO {
+    public float LeftArmPosition { get; set; }
+    public float RightArmPosition { get; set; }
+
+    public bool LeftHoofPinch { get; set; }
+    public bool RightHoofPinch { get; set; }
 }
 
 public class FilledBucketDataPoint
