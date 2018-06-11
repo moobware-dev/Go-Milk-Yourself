@@ -86,6 +86,13 @@ public class GameController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (Time.time > SecondsToEaseIntoIt)
+        {
+            inPosition = true;
+        }
+
+        var movmentSpeed = inPosition ? InGameMilkingSpeed : AssumeThePositionSpeed;
+
         var mouseDown = Input.GetMouseButton(0);
         var mouseOnLeftHalfOfScreen = Input.mousePosition.x <= (Screen.width / 2);
         var mouseVerticalPosition =
@@ -99,27 +106,28 @@ public class GameController : MonoBehaviour
         var leftArmJoystickPositionInput = (Input.GetAxis("Horizontal") + 1) / 2;
         var rightArmJoystickPositionInput = (Input.GetAxis("Vertical") + 1) / 2;
 
-        var leftArmTargetPosition = Vector3.Lerp(MilkUpperLeftBasePosition, MilkUpperLeftJustTheTipPosition, leftArmJoystickPositionInput);
-        var rightArmTargetPosition = Vector3.Lerp(MilkUpperRightBasePosition, MilkUpperRightJustTheTipPosition, rightArmJoystickPositionInput);
-
         var leftHoofPinchJoystickInput = Input.GetKey(KeyCode.JoystickButton6);
         var rightHoofPinchJoystickInput = Input.GetKey(KeyCode.JoystickButton7);
 
-        if (Time.time > SecondsToEaseIntoIt)
-        {
-            inPosition = true;
-        }
+        var leftArmPositionInput = 0f;
+        leftArmPositionInput = leftArmMousePositionInput != 0f ? leftArmMousePositionInput : leftArmJoystickPositionInput;
+        var rightArmPositionInput = 0f;
+        rightArmPositionInput = rightArmMousePositionInput != 0f ? rightArmMousePositionInput : rightArmJoystickPositionInput;
 
-        var movmentSpeed = inPosition ? InGameMilkingSpeed : AssumeThePositionSpeed;
+        var leftHoofPinchInput = leftHoofPinchMouseInput ? leftHoofPinchMouseInput : leftHoofPinchJoystickInput;
+        var rightHoofPinchInput = rightHoofPinchMouseInput ? rightHoofPinchMouseInput : rightHoofPinchJoystickInput;
+
+        var leftArmTargetPosition = Vector3.Lerp(MilkUpperLeftBasePosition, MilkUpperLeftJustTheTipPosition, leftArmPositionInput);
+        var rightArmTargetPosition = Vector3.Lerp(MilkUpperRightBasePosition, MilkUpperRightJustTheTipPosition, rightArmPositionInput);
 
         LeftArm.position = Vector3.Lerp(LeftArm.position, leftArmTargetPosition, Time.deltaTime * movmentSpeed);
         RightArm.position = Vector3.Lerp(RightArm.position, rightArmTargetPosition, Time.deltaTime * movmentSpeed);
 
-        var leftUpperHoofTargetRotation = leftHoofPinchJoystickInput ? UpperHoofPinchedRotation : UpperHoofRelaxedRotation;
-        var leftLowerHoofTargetRotation = leftHoofPinchJoystickInput ? LowerHoofPinchedRotation : LowerHoofRelaxedRotation;
+        var leftUpperHoofTargetRotation = leftHoofPinchInput ? UpperHoofPinchedRotation : UpperHoofRelaxedRotation;
+        var leftLowerHoofTargetRotation = leftHoofPinchInput ? LowerHoofPinchedRotation : LowerHoofRelaxedRotation;
 
-        var rightUpperHoofTargetRotation = rightHoofPinchJoystickInput ? UpperHoofPinchedRotation : UpperHoofRelaxedRotation;
-        var rightLowerHoofTargetRotation = rightHoofPinchJoystickInput ? LowerHoofPinchedRotation : LowerHoofRelaxedRotation;
+        var rightUpperHoofTargetRotation = rightHoofPinchInput ? UpperHoofPinchedRotation : UpperHoofRelaxedRotation;
+        var rightLowerHoofTargetRotation = rightHoofPinchInput ? LowerHoofPinchedRotation : LowerHoofRelaxedRotation;
 
         LeftArmUpperHoof.localRotation = Quaternion.Lerp(LeftArmUpperHoof.localRotation, Quaternion.Euler(leftUpperHoofTargetRotation), Time.deltaTime * HoofPinchSpeed);
         LeftArmLowerHoof.localRotation = Quaternion.Lerp(LeftArmLowerHoof.localRotation, Quaternion.Euler(leftLowerHoofTargetRotation), Time.deltaTime * HoofPinchSpeed);
@@ -127,20 +135,20 @@ public class GameController : MonoBehaviour
         RightArmUpperHoof.localRotation = Quaternion.Lerp(RightArmUpperHoof.localRotation, Quaternion.Euler(rightUpperHoofTargetRotation), Time.deltaTime * HoofPinchSpeed);
         RightArmLowerHoof.localRotation = Quaternion.Lerp(RightArmLowerHoof.localRotation, Quaternion.Euler(rightLowerHoofTargetRotation), Time.deltaTime * HoofPinchSpeed);
 
-        if (!IsLeftStroke && leftHoofPinchJoystickInput)
+        if (!IsLeftStroke && leftHoofPinchInput)
         {
             IsLeftStroke = true;
             LeftStrokeStartPos = LeftArm.position;
         }
-        else if (!IsLeftStroke && !leftHoofPinchJoystickInput)
+        else if (!IsLeftStroke && !leftHoofPinchInput)
         {
             // now you're just playing with it
         }
-        else if (IsLeftStroke && leftHoofPinchJoystickInput)
+        else if (IsLeftStroke && leftHoofPinchInput)
         {
             // keep strokin'
         }
-        else if (IsLeftStroke && !leftHoofPinchJoystickInput)
+        else if (IsLeftStroke && !leftHoofPinchInput)
         {
             IsLeftStroke = false;
             var strokeMagnitude = (LeftArm.position - LeftStrokeStartPos).sqrMagnitude;
@@ -163,20 +171,20 @@ public class GameController : MonoBehaviour
             }
         }
 
-        if (!IsRightStroke && rightHoofPinchJoystickInput)
+        if (!IsRightStroke && rightHoofPinchInput)
         {
             IsRightStroke = true;
             RightStrokeStartPos = RightArm.position;
         }
-        else if (!IsRightStroke && !rightHoofPinchJoystickInput)
+        else if (!IsRightStroke && !rightHoofPinchInput)
         {
             // now you're just playing with it
         }
-        else if (IsRightStroke && rightHoofPinchJoystickInput)
+        else if (IsRightStroke && rightHoofPinchInput)
         {
             // keep strokin'
         }
-        else if (IsRightStroke && !rightHoofPinchJoystickInput)
+        else if (IsRightStroke && !rightHoofPinchInput)
         {
             IsRightStroke = false;
             var strokeMagnitude = (RightArm.position - RightArmStartPosition).sqrMagnitude;
