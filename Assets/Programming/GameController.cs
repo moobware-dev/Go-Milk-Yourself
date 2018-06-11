@@ -136,9 +136,11 @@ public class GameController : MonoBehaviour
             var strokeMagnitude = (LeftArm.position - LeftStrokeStartPos).sqrMagnitude;
             if (LeftArm.position.z > LeftStrokeStartPos.z)
             {
+                UpperLeftMilkParticles.Play();
+                UpperLeftUdderAudioSource.Play();
+
                 if (currentBucketGameObject.transform.position == MilkCatchingPosition.position)
                 {
-                    UpperLeftUdderAudioSource.Play();
                     bucketsMilked += milkPerSquirt;
                     var bucketFull = (currentBucketScript.AddPercentFullToBucketReturnNewPercentFull(milkPerSquirt) >= 1f);
                     if (bucketFull)
@@ -147,7 +149,6 @@ public class GameController : MonoBehaviour
                         //RecordBucketFilled();
                         UpdateCurrentBucketsPerMinute();
                     }
-                    UpperLeftMilkParticles.Play();
                 }
             }
         }
@@ -171,9 +172,11 @@ public class GameController : MonoBehaviour
             var strokeMagnitude = (RightArm.position - RightArmStartPosition).sqrMagnitude;
             if (RightArm.position.z > RightStrokeStartPos.z)
             {
+                UpperRightUdderAudioSource.Play();
+                UpperRightMilkParticles.Play();
+
                 if (currentBucketGameObject.transform.position == MilkCatchingPosition.position)
                 {
-                    UpperRightUdderAudioSource.Play();
                     bucketsMilked += milkPerSquirt;
                     var bucketFull = (currentBucketScript.AddPercentFullToBucketReturnNewPercentFull(milkPerSquirt) >= 1f);
                     if (bucketFull)
@@ -182,7 +185,6 @@ public class GameController : MonoBehaviour
                         //RecordBucketFilled();
                         UpdateCurrentBucketsPerMinute();
                     }
-                    UpperRightMilkParticles.Play();
                 }
             }
         }
