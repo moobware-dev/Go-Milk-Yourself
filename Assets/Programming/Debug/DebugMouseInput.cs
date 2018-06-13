@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class DebugMouseInput : MonoBehaviour {
-
+public class DebugMouseInput : MonoBehaviour
+{
     public Button MouseDown;
 
     public Slider MousePositionLeftHalfOfScreen;
@@ -13,25 +13,59 @@ public class DebugMouseInput : MonoBehaviour {
     public Color ButtonHeldColor;
     public Color ButtonNeutralColor;
 
+    public float HitDebugSphereSize = 0.1f;
+
+    bool hitDetected;
+    Vector3 hitPoint;
+
+    public float leftUdderZMax = 0.08f;
+    public float leftUdderZMin = -0.02f;
+
+    public float rightUdderZMax = 0.08f;
+    public float rightUdderZMin = -0.02f;
+
     // Use this for initialization
     void Start()
     {
 
     }
 
+    public void OnDrawGizmos()
+    {
+        if (hitDetected)
+        {
+            Gizmos.color = Color.black;
+            Gizmos.DrawSphere(hitPoint, HitDebugSphereSize);
+        }
+    }
+
     // Update is called once per frame
     void Update()
     {
-        var mouseOnLeftHalfOfScreen = Input.mousePosition.x <= (Screen.width / 2);
-        var mouseVerticalPosition = 
-            ((Input.mousePosition.y / Screen.height) - 0.5f) * 2;
+        MouseDown.image.color = Input.GetMouseButtonDown(0) ? ButtonHeldColor : ButtonNeutralColor;
 
-        MousePositionLeftHalfOfScreen.value = mouseOnLeftHalfOfScreen ? mouseVerticalPosition : 0;
+        hitDetected = false;
+        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        Debug.DrawRay(ray.origin, ray.direction, Color.black);
+        var hits = Physics.RaycastAll(ray);
 
-        MousePositionRightHalfOfScreen.value = !mouseOnLeftHalfOfScreen ? mouseVerticalPosition: 0;
+        foreach (var hit in hits)
+        {
+            if (hit.transform.gameObject.name == "TopLeftUdder")
+            {
+                hitDetected = true;
+                hitPoint = hit.point;
+                Debug.Log(string.Format("z: {0}", hitPoint.z));
+                MousePositionLeftHalfOfScreen.value = (Mathf.InverseLerp(leftUdderZMin, leftUdderZMax, hitPoint.z) * 2) -1;
+            }
 
-        var mouseDown = Input.GetMouseButton(0);
-
-        MouseDown.image.color = mouseDown ? ButtonHeldColor : ButtonNeutralColor;
+            if (hit.transform.gameObject.name == "TopRightUdder")
+            {
+                hitDetected = true;
+                hitPoint = hit.point;
+                Debug.Log(string.Format("z: {0}", hitPoint.z));
+                MousePositionRightHalfOfScreen.value = (Mathf.InverseLerp(rightUdderZMin, rightUdderZMax, hitPoint.z) * 2) -1;
+            }
+        }
     }
 }

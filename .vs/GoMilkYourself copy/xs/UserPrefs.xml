@@ -1,8 +1,10 @@
 ﻿<Properties StartupConfiguration="{E7AA6331-ECD6-CD7E-53DA-61D121A876A7}|">
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Programming/GameController.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Programming/Debug/DebugCollider.cs">
     <Files>
-      <File FileName="Assets/Programming/GameController.cs" Line="218" Column="26" />
+      <File FileName="Assets/Programming/GameController.cs" Line="219" Column="52" />
       <File FileName="Assets/Programming/Debug/DebugPs4Controller.cs" Line="5" Column="1" />
+      <File FileName="Assets/Programming/Debug/DebugMouseInput.cs" Line="14" Column="37" />
+      <File FileName="Assets/Programming/Debug/DebugCollider.cs" Line="7" Column="34" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />

@@ -328,6 +328,11 @@ MonoBehaviour:
   MousePositionRightHalfOfScreen: {fileID: 1610906076}
   ButtonHeldColor: {r: 0.36862746, g: 0.37254903, b: 1, a: 1}
   ButtonNeutralColor: {r: 1, g: 1, b: 1, a: 1}
+  HitDebugSphereSize: 0.01
+  leftUdderZMax: 0.065
+  leftUdderZMin: -0.02
+  rightUdderZMax: 0.065
+  rightUdderZMin: -0.02
 --- !u!1 &179001079
 GameObject:
   m_ObjectHideFlags: 0
@@ -12065,3 +12070,14 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 5, y: 5, z: 70}
   m_Center: {x: 0.00000000964161, y: -0.00000022158797, z: 29.74103}
+--- !u!114 &2138899766
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2138899761}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2424b85e2e17f4e81bcb711c4000b5a9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
