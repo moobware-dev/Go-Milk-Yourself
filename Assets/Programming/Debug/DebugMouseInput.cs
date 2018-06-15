@@ -55,7 +55,7 @@ public class DebugMouseInput : MonoBehaviour
             {
                 hitDetected = true;
                 hitPoint = hit.point;
-                Debug.Log(string.Format("z: {0}", hitPoint.z));
+                //Debug.Log(string.Format("z: {0}", hitPoint.z));
                 MousePositionLeftHalfOfScreen.value = (Mathf.InverseLerp(leftUdderZMin, leftUdderZMax, hitPoint.z) * 2) -1;
             }
 
@@ -63,7 +63,7 @@ public class DebugMouseInput : MonoBehaviour
             {
                 hitDetected = true;
                 hitPoint = hit.point;
-                Debug.Log(string.Format("z: {0}", hitPoint.z));
+                //Debug.Log(string.Format("z: {0}", hitPoint.z));
                 MousePositionRightHalfOfScreen.value = (Mathf.InverseLerp(rightUdderZMin, rightUdderZMax, hitPoint.z) * 2) -1;
             }
         }

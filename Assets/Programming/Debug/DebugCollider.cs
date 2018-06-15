@@ -1,32 +1,25 @@
 ﻿using UnityEngine;
 
+[ExecuteInEditMode]
 public class DebugCollider : MonoBehaviour
 {
-    Collider m_Collider;
-    Vector3 m_Center;
-    Vector3 m_Size, m_Min, m_Max;
+    public bool MatchRotation = false;
+    Collider _collider;
 
     void Start()
     {
-        //Fetch the Collider from the GameObject
-        m_Collider = GetComponent<Collider>();
-        //Fetch the center of the Collider volume
-        m_Center = m_Collider.bounds.center;
-        //Fetch the size of the Collider volume
-        m_Size = m_Collider.bounds.size;
-        //Fetch the minimum and maximum bounds of the Collider volume
-        m_Min = m_Collider.bounds.min;
-        m_Max = m_Collider.bounds.max;
-        //Output this data into the console
-        OutputData();
+        _collider = GetComponent<Collider>();
     }
 
-    void OutputData()
+    void OnDrawGizmos()
     {
-        //Output to the console the center and size of the Collider volume
-        Debug.Log("Collider Center : " + m_Center);
-        Debug.Log("Collider Size : " + m_Size);
-        Debug.Log("Collider bound Minimum : " + m_Min);
-        Debug.Log("Collider bound Maximum : " + m_Max);
+        // TODO figure out wtf is going on here, when I rotate, the extents and the size change,
+        //      in my mind the size sholdn't change, I'm not scaling the shape just rotating it fml
+        var topMiddle = new Vector3(_collider.bounds.center.x, (_collider.bounds.center.y + (_collider.bounds.size.y / 2f)), _collider.bounds.center.z);
+        if (MatchRotation) {
+            topMiddle = transform.rotation * topMiddle;
+        }
+        Gizmos.color = Color.red;
+        Gizmos.DrawSphere(topMiddle, 0.1f);
     }
 }
