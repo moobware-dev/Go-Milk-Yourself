@@ -1,8 +1,10 @@
 ﻿using UnityEngine;
 
 [ExecuteInEditMode]
-public class DebugCollider : MonoBehaviour
+public class DebugColliderBounds : MonoBehaviour
 {
+    public Color color = Color.red;
+    public float Z_Adjustment = 0f;
     public bool MatchRotation = false;
     Collider _collider;
 
@@ -19,7 +21,9 @@ public class DebugCollider : MonoBehaviour
         if (MatchRotation) {
             topMiddle = transform.rotation * topMiddle;
         }
-        Gizmos.color = Color.red;
+
+        topMiddle.z += Z_Adjustment;
+        Gizmos.color = color;
         Gizmos.DrawSphere(topMiddle, 0.1f);
     }
 }

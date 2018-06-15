@@ -1,7 +1,9 @@
 ﻿using UnityEngine;
 
 [ExecuteInEditMode]
-public class DebugCollider4 : MonoBehaviour {
+public class DebugColliderNotBounds : MonoBehaviour {
+    public Color color = Color.green;
+    public float Z_Adjustment = 0f;
     public bool MatchRotation = false;
     public bool MatchScale = false;
     BoxCollider _collider;
@@ -25,12 +27,8 @@ public class DebugCollider4 : MonoBehaviour {
             topMiddle = transform.rotation * topMiddle;
         }
 
-        Gizmos.color = Color.cyan;
+        topMiddle.z += Z_Adjustment;
+        Gizmos.color = color;
         Gizmos.DrawSphere(topMiddle, 0.1f);
-	}
-
-	// Update is called once per frame
-	void Update () {
-
 	}
 }

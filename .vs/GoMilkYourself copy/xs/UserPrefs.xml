@@ -1,15 +1,5 @@
 ﻿<Properties StartupConfiguration="{E7AA6331-ECD6-CD7E-53DA-61D121A876A7}|">
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Programming/Debug/DebugCollider.cs">
-    <Files>
-      <File FileName="Assets/Programming/GameController.cs" Line="219" Column="52" />
-      <File FileName="Assets/Programming/Debug/DebugPs4Controller.cs" Line="28" Column="6" />
-      <File FileName="Assets/Programming/Debug/DebugMouseInput.cs" Line="33" Column="29" />
-      <File FileName="Assets/Programming/Debug/DebugCollider4.cs" Line="34" Column="9" />
-      <File FileName="Assets/Programming/Debug/DebugCollider3.cs" Line="29" Column="5" />
-      <File FileName="Assets/Programming/Debug/DebugCollider2.cs" Line="35" Column="1" />
-      <File FileName="Assets/Programming/Debug/DebugCollider.cs" Line="24" Column="2" NotebookId="1" />
-    </Files>
-  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.Workbench />
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore />
