@@ -54,10 +54,12 @@ public class DebugMouseInput : MonoBehaviour
                 hitDetected = true;
                 hitPoint = hit.point;
 
+                // TODO don't get the collider everytime and calculate the local center (local center won't move, not yet anyway)
                 var colliderCollided = hit.transform.gameObject.GetComponent<BoxCollider>();
                 var backMiddle = (colliderCollided.center - new Vector3(0, 0, colliderCollided.size.z / 2));
                 var frontMiddle = backMiddle + new Vector3(0, 0, colliderCollided.size.z);
 
+                // TODO don't draw debug gizmos no mo
                 Debug.DrawLine(hit.transform.TransformPoint(backMiddle),
                                hit.transform.TransformPoint(frontMiddle), Color.black);
 
@@ -66,17 +68,21 @@ public class DebugMouseInput : MonoBehaviour
                 Debug.DrawLine(hit.transform.TransformPoint(backMiddle),
                                hit.transform.TransformPoint(calculatedPosition), Color.white);
 
+                // TODO don't log all over the place
                 var hitPositionColliderVerticalPercentage = (calculatedPosition - backMiddle).sqrMagnitude / (frontMiddle - backMiddle).sqrMagnitude;
                 Debug.Log("percentage: " + hitPositionColliderVerticalPercentage);
                 MousePositionLeftHalfOfScreen.value =(hitPositionColliderVerticalPercentage * 2 ) - 1;
             }
 
+            // TODO hook up the right udder!
             if (hit.transform.gameObject.name == "TopRightUdder")
             {
                 hitDetected = true;
                 hitPoint = hit.point;
                 MousePositionRightHalfOfScreen.value = (Mathf.InverseLerp(rightUdderZMin, rightUdderZMax, hitPoint.z) * 2) - 1;
             }
+
+            // TODO and wire up to the game controller and actually use this info as input
         }
     }
 }
