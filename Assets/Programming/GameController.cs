@@ -204,36 +204,36 @@ public class GameController : MonoBehaviour
     }
 
     GoMilkYourselfInputDTO GetMouseInput() {
-        //var mouseDown = Input.GetMouseButton(0);
-        //var mouseOnLeftHalfOfScreen = Input.mousePosition.x <= (Screen.width / 2);
-        //var mouseVerticalPosition =
-        //    ((Input.mousePosition.y / Screen.height) - 0.5f) * 2;
+        var mouseDown = Input.GetMouseButton(0);
+        var mouseOnLeftHalfOfScreen = Input.mousePosition.x <= (Screen.width / 2);
+        var mouseVerticalPosition =
+            ((Input.mousePosition.y / Screen.height) - 0.5f) * 2;
 
-        //var leftArmMousePositionInput = mouseOnLeftHalfOfScreen ? mouseVerticalPosition : 0;
-        //var rightArmMousePositionInput = !mouseOnLeftHalfOfScreen ? mouseVerticalPosition : 0;
-        //var leftHoofPinchMouseInput = mouseOnLeftHalfOfScreen && mouseDown;
-        //var rightHoofPinchMouseInput = !mouseOnLeftHalfOfScreen && mouseDown;
+        var leftArmMousePositionInput = mouseOnLeftHalfOfScreen ? mouseVerticalPosition : 0;
+        var rightArmMousePositionInput = !mouseOnLeftHalfOfScreen ? mouseVerticalPosition : 0;
+        var leftHoofPinchMouseInput = mouseOnLeftHalfOfScreen && mouseDown;
+        var rightHoofPinchMouseInput = !mouseOnLeftHalfOfScreen && mouseDown;
 
         // TODO ACTUALLY USE THIS INSTEAD OF THE HACK ABOVE
-        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-        //Debug.DrawRay(ray.origin, ray.direction);
-        RaycastHit hitInfo = default(RaycastHit);
-        if (Physics.Raycast(ray, out hitInfo)) {
-            if (hitInfo.transform.gameObject == TopLeftUdder) {
-                Debug.Log("hovering top left udder");
-            }
+        //Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        ////Debug.DrawRay(ray.origin, ray.direction);
+        //RaycastHit hitInfo = default(RaycastHit);
+        //if (Physics.Raycast(ray, out hitInfo)) {
+        //    if (hitInfo.transform.gameObject == TopLeftUdder) {
+        //        Debug.Log("hovering top left udder");
+        //    }
 
-            if (hitInfo.transform.gameObject == TopRightUdder) {
-                Debug.Log("Hovering top right udder");
-            }
-        }
+        //    if (hitInfo.transform.gameObject == TopRightUdder) {
+        //        Debug.Log("Hovering top right udder");
+        //    }
+        //}
 
         return new GoMilkYourselfInputDTO
         {
-            LeftArmPosition = 0,
-            RightArmPosition = 0,
-            LeftHoofPinch = false,
-            RightHoofPinch = false
+            LeftArmPosition = leftArmMousePositionInput,
+            RightArmPosition = rightArmMousePositionInput,
+            LeftHoofPinch = leftHoofPinchMouseInput,
+            RightHoofPinch = rightHoofPinchMouseInput
         };
     }
 
