@@ -53,8 +53,6 @@ public class DebugMouseInput : MonoBehaviour
             {
                 hitDetected = true;
                 hitPoint = hit.point;
-                //Debug.Log(string.Format("z: {0}", hitPoint.z));
-                MousePositionLeftHalfOfScreen.value = (Mathf.InverseLerp(leftUdderZMin, leftUdderZMax, hitPoint.z) * 2) - 1;
 
                 var colliderCollided = hit.transform.gameObject.GetComponent<BoxCollider>();
                 var backMiddle = (colliderCollided.center - new Vector3(0, 0, colliderCollided.size.z / 2));
@@ -67,6 +65,10 @@ public class DebugMouseInput : MonoBehaviour
                 var calculatedPosition = hit.transform.TransformPoint(backMiddle) + new Vector3(0, 0, hitPositionLocal.z);
                 Debug.DrawLine(hit.transform.TransformPoint(backMiddle),
                                hit.transform.TransformPoint(calculatedPosition), Color.white);
+
+                var hitPositionColliderVerticalPercentage = (calculatedPosition - backMiddle).sqrMagnitude / (frontMiddle - backMiddle).sqrMagnitude;
+                Debug.Log("percentage: " + hitPositionColliderVerticalPercentage);
+                MousePositionLeftHalfOfScreen.value =(hitPositionColliderVerticalPercentage * 2 ) - 1;
             }
 
             if (hit.transform.gameObject.name == "TopRightUdder")
