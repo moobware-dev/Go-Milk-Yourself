@@ -363,8 +363,8 @@ RectTransform:
   m_Father: {fileID: 1551739487}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
+  m_AnchorMin: {x: 0.5, y: 0}
+  m_AnchorMax: {x: 0.5, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 20, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -610,7 +610,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &262263509
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1414,7 +1414,7 @@ RectTransform:
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
+  m_AnchorMax: {x: 0.49, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 10, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -5341,8 +5341,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 5, y: 5, z: 70}
-  m_Center: {x: -0.0000005918387, y: -0.0000011752622, z: 29.74103}
+  m_Size: {x: 6, y: 5, z: 100}
+  m_Center: {x: -0.0000005918387, y: -0.0000011752622, z: 46}
 --- !u!1 &914978299
 GameObject:
   m_ObjectHideFlags: 0
@@ -5640,6 +5640,7 @@ MonoBehaviour:
   StrokeThreshold: 0.01
   SecondsToEaseIntoIt: 0.5
   AssumeThePositionSpeed: 3
+  UdderMouseHoverAdjustmentMultiplier: 3
   InGameMilkingSpeed: 15
   MilkingSpeedDelay: 1
   HoofPinchSpeed: 15
@@ -6338,7 +6339,7 @@ RectTransform:
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
+  m_AnchorMax: {x: 0.5, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 10, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -11063,8 +11064,8 @@ RectTransform:
   m_Father: {fileID: 810059715}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
+  m_AnchorMin: {x: 0.49, y: 0}
+  m_AnchorMax: {x: 0.49, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 20, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -12072,5 +12073,5 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 5, y: 5, z: 70}
-  m_Center: {x: 0.00000000964161, y: -0.00000022158797, z: 29.74103}
+  m_Size: {x: 6, y: 5, z: 100}
+  m_Center: {x: 0.00000000964161, y: -0.00000022158797, z: 46}

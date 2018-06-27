@@ -11,6 +11,7 @@ public class GameController : MonoBehaviour
     public float StrokeThreshold = 0.01f;
     public float SecondsToEaseIntoIt = 3f;
     public float AssumeThePositionSpeed = 1f;
+    public float UdderMouseHoverAdjustmentMultiplier = 3f;
     public float InGameMilkingSpeed = 15f;
     public float MilkingSpeedDelay = 1f;
     public float HoofPinchSpeed = 15f;
@@ -204,29 +205,58 @@ public class GameController : MonoBehaviour
     }
 
     GoMilkYourselfInputDTO GetMouseInput() {
-        var mouseDown = Input.GetMouseButton(0);
-        var mouseOnLeftHalfOfScreen = Input.mousePosition.x <= (Screen.width / 2);
-        var mouseVerticalPosition =
-            ((Input.mousePosition.y / Screen.height) - 0.5f) * 2;
+        //var mouseDown = Input.GetMouseButton(0);
+        //var mouseOnLeftHalfOfScreen = Input.mousePosition.x <= (Screen.width / 2);
+        //var mouseVerticalPosition =
+        //    ((Input.mousePosition.y / Screen.height) - 0.5f) * 2;
 
-        var leftArmMousePositionInput = mouseOnLeftHalfOfScreen ? mouseVerticalPosition : 0;
-        var rightArmMousePositionInput = !mouseOnLeftHalfOfScreen ? mouseVerticalPosition : 0;
-        var leftHoofPinchMouseInput = mouseOnLeftHalfOfScreen && mouseDown;
-        var rightHoofPinchMouseInput = !mouseOnLeftHalfOfScreen && mouseDown;
+        //var leftArmMousePositionInput = mouseOnLeftHalfOfScreen ? mouseVerticalPosition : 0;
+        //var rightArmMousePositionInput = !mouseOnLeftHalfOfScreen ? mouseVerticalPosition : 0;
+        //var leftHoofPinchMouseInput = mouseOnLeftHalfOfScreen && mouseDown;
+        //var rightHoofPinchMouseInput = !mouseOnLeftHalfOfScreen && mouseDown;
 
-        // TODO ACTUALLY USE THIS INSTEAD OF THE HACK ABOVE
-        //Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-        ////Debug.DrawRay(ray.origin, ray.direction);
-        //RaycastHit hitInfo = default(RaycastHit);
-        //if (Physics.Raycast(ray, out hitInfo)) {
-        //    if (hitInfo.transform.gameObject == TopLeftUdder) {
-        //        Debug.Log("hovering top left udder");
-        //    }
+        var leftArmMousePositionInput = 0f;
+        var rightArmMousePositionInput = 0f;
+        var leftHoofPinchMouseInput = false;
+        var rightHoofPinchMouseInput = false;
 
-        //    if (hitInfo.transform.gameObject == TopRightUdder) {
-        //        Debug.Log("Hovering top right udder");
-        //    }
-        //}
+        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        var hits = Physics.RaycastAll(ray);
+
+        foreach (var hit in hits)
+        {
+            if (hit.transform.gameObject.name == "TopLeftUdder")
+            {
+                var colliderCollided = hit.transform.gameObject.GetComponent<BoxCollider>();
+                var backMiddle = (colliderCollided.center - new Vector3(0, 0, colliderCollided.size.z / 2));
+                var frontMiddle = backMiddle + new Vector3(0, 0, colliderCollided.size.z);
+
+                var hitPositionLocal = hit.transform.InverseTransformPoint(hit.point);
+                var calculatedPosition = hit.transform.TransformPoint(backMiddle) + new Vector3(0, 0, hitPositionLocal.z);
+
+                var hitPositionColliderVerticalPercentage = (calculatedPosition - backMiddle).sqrMagnitude / (frontMiddle - backMiddle).sqrMagnitude;
+                hitPositionColliderVerticalPercentage *= UdderMouseHoverAdjustmentMultiplier;
+
+                leftArmMousePositionInput = hitPositionColliderVerticalPercentage;
+                leftHoofPinchMouseInput = Input.GetMouseButton(0);
+            }
+
+            if (hit.transform.gameObject.name == "TopRightUdder")
+            {
+                var colliderCollided = hit.transform.gameObject.GetComponent<BoxCollider>();
+                var backMiddle = (colliderCollided.center - new Vector3(0, 0, colliderCollided.size.z / 2));
+                var frontMiddle = backMiddle + new Vector3(0, 0, colliderCollided.size.z);
+
+                var hitPositionLocal = hit.transform.InverseTransformPoint(hit.point);
+                var calculatedPosition = hit.transform.TransformPoint(backMiddle) + new Vector3(0, 0, hitPositionLocal.z);
+
+                var hitPositionColliderVerticalPercentage = (calculatedPosition - backMiddle).sqrMagnitude / (frontMiddle - backMiddle).sqrMagnitude;
+                hitPositionColliderVerticalPercentage *= UdderMouseHoverAdjustmentMultiplier;
+
+                rightArmMousePositionInput = hitPositionColliderVerticalPercentage;
+                rightHoofPinchMouseInput = Input.GetMouseButton(0);
+            }
+        }
 
         return new GoMilkYourselfInputDTO
         {
